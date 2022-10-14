@@ -14,14 +14,14 @@ const Sort = () => {
                         fill="#2C2C2C"
                     />
                 </svg>
-                <b>Сортировка по:</b>
-                <span>популярности</span>
+                <b>sorting by:</b>
+                <span>popularity</span>
             </div>
             <div className="sort__popup">
                 <ul>
-                    <li className="active">популярности</li>
-                    <li>цене</li>
-                    <li>алфавиту</li>
+                    <li className="active">popularity</li>
+                    <li>price</li>
+                    <li>name</li>
                 </ul>
             </div>
         </div>

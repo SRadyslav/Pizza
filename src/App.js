@@ -4,6 +4,7 @@ import Header from './components/Header'
 import Categories from './components/Categories'
 import Sort from './components/Sort'
 import PizzaBlock from './components/PizzaBlock.jsx'
+import pizzas from './assets/pizza.json'
 
 
 
@@ -17,12 +18,12 @@ function App() {
             <Categories />
             <Sort />
           </div>
-          <h2 className="content__title">Все пиццы</h2>
+          <h2 className="content__title">All Pizza</h2>
           <div className="content__items">
-            <PizzaBlock title="Mexico" price="5" />
-            <PizzaBlock title="Standard" price="4.5" />
-            <PizzaBlock title="4 cheeses" price="5" />
-            <PizzaBlock />
+          {
+            pizzas.map((p, i) => (
+              <PizzaBlock key={i} {...p} />))
+          }            
           </div>
         </div>
       </div>
