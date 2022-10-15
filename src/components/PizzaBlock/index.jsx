@@ -8,7 +8,8 @@ imageUrl =piz, types, sizes }) => {
     const [activeType, setActiveType] = React.useState(0)
     const [activeSize, setActiveSize] = React.useState(0)
     return (
-        <div className="pizza-block">
+        <div className="pizza-block-wrapper">
+            <div className="pizza-block">
             <img
                 className="pizza-block__image"
                 src={imageUrl}
@@ -44,6 +45,7 @@ imageUrl =piz, types, sizes }) => {
                     <i>0</i>
                 </button>
             </div>
+        </div>
         </div>
     )
 }

@@ -17,9 +17,9 @@ export const Home = () => {
                 setItems(arr.slice(0, 10))
                 setIsLoading(false)
             })
+        window.scrollTo(0,0)
     }, [])
     return (
-        <>
             <div className="container">
                 <div className="content__top">
                     <Categories />
@@ -33,6 +33,5 @@ export const Home = () => {
                     }
                 </div>
             </div>
-        </>
     )
 }
