@@ -17,12 +17,12 @@ imageUrl =piz, types, sizes }) => {
             <h4 className="pizza-block__title">{title}</h4>
             <div className="pizza-block__selector">
                 <ul>
-                {types.map((p,i)=>(<li key={i} onClick={()=>{setActiveType(i)}}
-                className={activeType === i ?"active": ""}>{typeNames[p]}</li>))}
+                {types.map((typeId,i)=>(<li key={typeId} onClick={()=>{setActiveType(i)}}
+                className={activeType === i ?"active": ""}>{typeNames[typeId]}</li>))}
                 </ul>
                 <ul>
-                    {sizes.map((p,i)=>(<li key={i} onClick={()=>{setActiveSize(i)}} 
-                    className={activeSize === i ? "active": ""}>{p}</li>))}
+                    {sizes.map((size,i)=>(<li key={size} onClick={()=>{setActiveSize(i)}} 
+                    className={activeSize === i ? "active": ""}>{size}</li>))}
                 </ul>
             </div>
             <div className="pizza-block__bottom">
