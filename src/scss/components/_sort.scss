@@ -5,9 +5,15 @@
   &__label {
     display: flex;
     align-items: center;
-
-    svg {
-      margin-right: 8px;
+    
+    button{
+      margin-left: 5px;
+      background-color: transparent;
+      color: $orange;
+      border: none;
+      //border-bottom: 1px dashed $orange;
+      font-size: large;
+      cursor: pointer
     }
 
     b {
