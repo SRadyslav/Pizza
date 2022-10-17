@@ -1,44 +1,86 @@
 import React from 'react'
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import qs from 'qs'
 
 import Categories from '../components/Categories'
-import Sort from '../components/Sort'
+import Sort, { sortList } from '../components/Sort'
 import PizzaBlock from '../components/PizzaBlock/index.jsx'
 import { Dummy } from '../components/PizzaBlock/Dummy';
 import Pagination from '../components/Pagination';
 import { SearchContext } from '../App';
-import {setSelectedCategory, setSelectedSort} from '../redux/slices/filterSlice'
+import { setSelectedCategory, setSelectedSort, setCurrentPage, setFilter } from '../redux/slices/filterSlice'
 
 
 export const Home = () => {
-    const {searchValue} = React.useContext(SearchContext)
+    const { searchValue } = React.useContext(SearchContext)
+
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const isSearch = React.useRef(false)
+    const isMounted = React.useRef(false)
+
+    const { selectedCategory, selectedSort, orderType, currentPage } = useSelector(state => state.filter)
+
+    const [items, setItems] = React.useState([]);
+    const [isLoading, setIsLoading] = React.useState(true)
+    const limit = 4
+
+    const fetchPizzas = () => {
+        const category = selectedCategory > 0 ? `category=${selectedCategory}` : ''
+        const search = searchValue === '' ? '' : `search=${searchValue}`
+
+        setIsLoading(true)
+        axios.get(`https://634bdb48317dc96a308c1d66.mockapi.io/items?page=${currentPage}&limit=${limit}&${category
+            }&sortBy=${selectedSort.sortType}&order=${orderType}&${search}`)
+            .then((res) => {
+                setItems(res.data)
+                setIsLoading(false)
+            })
+    }
+    ///do this actions only if there was first render and parameters was changed
+    React.useEffect(() => {
+        if (isMounted.current) {
+            const queryString = qs.stringify({
+                selectedCategory,
+                sortType: selectedSort.sortType,
+                orderType,
+                searchValue,
+                currentPage,
+            })
+            navigate(`?${queryString}`)
+        }
+        isMounted.current = true
+    }, [selectedCategory, selectedSort.sortType, orderType, searchValue, currentPage])
+
+    //if there was first render then check URL-parameters and save in store
+    React.useEffect(() => {
+        if (window.location.search) {
+            const params = qs.parse(window.location.search.substring(1))
+            const sort = sortList.find(obj => obj.sortType === params.sortType)
+            dispatch(setFilter({
+                ...params,
+                sort
+            }
+            ))
+            isSearch.current = true
+        }
+    }, [])
+
+    //if there was first render then request pizzas
+    React.useEffect(() => {
+        window.scrollTo(0, 0)
+        if (!isSearch.current) {
+            fetchPizzas()
+        }
+        isSearch.current = false
+    }, [selectedCategory, selectedSort.sortType, orderType, searchValue, currentPage])
+
+
     const onChangeFilter = (payload, action) => {
         dispatch(action(payload))
     }
-    const {selectedCategory, selectedSort, orderType} = useSelector(state=> state.filter)
-    
-    const [items, setItems] = React.useState([]);
-    const [isLoading, setIsLoading] = React.useState(true)
-    const [currentPage, setCurrentPage] = React.useState(1)
-    const limit = 4
-
-
-    React.useEffect(() => {
-        const category = selectedCategory > 0 ? `category=${selectedCategory}` : ''
-        const search = searchValue === '' ? '' : `search=${searchValue}`
-        
-        setIsLoading(true)
-        fetch(`https://634bdb48317dc96a308c1d66.mockapi.io/items?page=${currentPage}&limit=${limit}&${category
-            }&sortBy=${selectedSort.sortType}&order=${orderType}&${search}`)
-            .then((res) => res.json())
-            .then((arr) => {
-                setItems(arr)
-                setIsLoading(false)
-            })
-        window.scrollTo(0, 0)
-    }, [selectedCategory, selectedSort, orderType, searchValue, currentPage])
-
 
     return (
         <div className="container">
@@ -53,7 +95,7 @@ export const Home = () => {
                         : items.map((obj) => <PizzaBlock key={obj.id} {...obj} />)
                 }
             </div>
-            <Pagination pageCount={3} onChangePage={(number) => setCurrentPage(number)} numberOfPages={limit} />
+            <Pagination pageCount={3} currentPage={currentPage} onChangePage={(number) => dispatch(setCurrentPage(number))} numberOfPages={limit} />
         </div>
     )
 }

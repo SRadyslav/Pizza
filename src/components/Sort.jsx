@@ -4,6 +4,10 @@ import {useDispatch} from 'react-redux'
 import { setOrderType } from '../redux/slices/filterSlice'
 
 
+export const sortList = [{ name: "popularity", sortType: "rating" },
+    { name: "price", sortType: "price" },
+    { name: "name", sortType: "title" }
+    ]
 
 const Sort = ({ selectedSort, onChangeSort }) => {
 
@@ -12,10 +16,6 @@ const Sort = ({ selectedSort, onChangeSort }) => {
         dispatch(setOrderType(payload))
     }
     const [isVisible, setIsVisible] = React.useState(false)
-    const list = [{ name: "popularity", sortType: "rating" },
-    { name: "price", sortType: "price" },
-    { name: "name", sortType: "title" }
-    ]
 
     const selectItem = (index) => {
         onChangeSort(index)
@@ -33,7 +33,7 @@ const Sort = ({ selectedSort, onChangeSort }) => {
             </div>
             {isVisible && <div className="sort__popup">
                 <ul>
-                    {list.map((obj) => {
+                    {sortList.map((obj) => {
                         return <li key={obj.name}
                             className={obj.name === selectedSort.name ? "active" : ""}
                             onClick={() => selectItem(obj)}>{obj.name}</li>
