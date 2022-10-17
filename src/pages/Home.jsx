@@ -1,29 +1,33 @@
 import React from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 
 import Categories from '../components/Categories'
 import Sort from '../components/Sort'
 import PizzaBlock from '../components/PizzaBlock/index.jsx'
 import { Dummy } from '../components/PizzaBlock/Dummy';
 import Pagination from '../components/Pagination';
+import { SearchContext } from '../App';
+import {setSelectedCategory, setSelectedSort} from '../redux/slices/filterSlice'
 
 
-export const Home = ({ searchValue }) => {
+export const Home = () => {
+    const {searchValue} = React.useContext(SearchContext)
+    const dispatch = useDispatch()
+    const onChangeFilter = (payload, action) => {
+        dispatch(action(payload))
+    }
+    const {selectedCategory, selectedSort, orderType} = useSelector(state=> state.filter)
+    
     const [items, setItems] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true)
     const [currentPage, setCurrentPage] = React.useState(1)
-
-    const [selectedCategory, setSelectedCategory] = React.useState(0);
-    const [selectedSort, setSelectedSort] = React.useState({
-        name: 'popularity',
-        sortType: 'rating'
-    })
-    const [orderType, setOrderType] = React.useState("asc")
     const limit = 4
+
+
     React.useEffect(() => {
         const category = selectedCategory > 0 ? `category=${selectedCategory}` : ''
         const search = searchValue === '' ? '' : `search=${searchValue}`
         
-
         setIsLoading(true)
         fetch(`https://634bdb48317dc96a308c1d66.mockapi.io/items?page=${currentPage}&limit=${limit}&${category
             }&sortBy=${selectedSort.sortType}&order=${orderType}&${search}`)
@@ -39,8 +43,8 @@ export const Home = ({ searchValue }) => {
     return (
         <div className="container">
             <div className="content__top">
-                <Categories category={selectedCategory} onChangeCategory={(index) => setSelectedCategory(index)} />
-                <Sort selectedSort={selectedSort} onChangeSort={(index) => setSelectedSort(index)} setOrderType={(type) => setOrderType(type)} />
+                <Categories category={selectedCategory} onChangeCategory={(index) => onChangeFilter(index, setSelectedCategory)} />
+                <Sort selectedSort={selectedSort} onChangeSort={(index) => onChangeFilter(index, setSelectedSort)} />
             </div>
             <h2 className="content__title">All Pizza</h2>
             <div className="content__items">
