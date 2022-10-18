@@ -10,8 +10,21 @@ export const sortList = [{ name: "popularity", sortType: "rating" },
     ]
 
 const Sort = ({ selectedSort, onChangeSort }) => {
-
     const dispatch = useDispatch()
+    const sortRef = React.useRef()
+
+    React.useEffect(()=>{
+        const eventListener = (event) => {
+            if(!event.path.includes(sortRef.current)) {
+                setIsVisible(false)
+            }
+        }
+        document.body.addEventListener('click', eventListener);
+        return ()=>{
+            document.body.removeEventListener('click', eventListener);
+        }
+    },[])
+
     const onButtonClick = (payload) => {
         dispatch(setOrderType(payload))
     }
@@ -23,7 +36,7 @@ const Sort = ({ selectedSort, onChangeSort }) => {
     }
 
     return (
-        <div className="sort">
+        <div className="sort" ref={sortRef}>
             <div className="sort__label">
 
                 <b>sorting by:</b>

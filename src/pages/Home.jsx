@@ -13,6 +13,7 @@ import { SearchContext } from '../App';
 import { setSelectedCategory, setSelectedSort, setCurrentPage, setFilter } from '../redux/slices/filterSlice'
 
 
+
 export const Home = () => {
     const { searchValue } = React.useContext(SearchContext)
 
