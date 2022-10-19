@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { sum } from 'lodash'
 
 const initialState = {
     totalPrice: 0,
@@ -41,6 +40,9 @@ export const cartSlice = createSlice({
     }
 })
 
+
+export const selectCartData = state => state.cart
+export const selectCartItemById = id => state => state.cart.items.find(obj => obj.id === id)
 
 export const { addItems, clearItems, minusItem, removeItems } = cartSlice.actions
 

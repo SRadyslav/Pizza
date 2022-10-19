@@ -1,7 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import qs from 'qs'
 
 import Categories from '../components/Categories'
@@ -9,36 +8,28 @@ import Sort, { sortList } from '../components/Sort'
 import PizzaBlock from '../components/PizzaBlock/index.jsx'
 import { Dummy } from '../components/PizzaBlock/Dummy';
 import Pagination from '../components/Pagination';
-import { SearchContext } from '../App';
 import { setSelectedCategory, setSelectedSort, setCurrentPage, setFilter } from '../redux/slices/filterSlice'
+import { fetchPizza } from '../redux/slices/pizzaSlice'
+import { NoPizza } from '../components/PizzaBlock/NoPizza'
 
 
 
 export const Home = () => {
-    const { searchValue } = React.useContext(SearchContext)
+
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const isSearch = React.useRef(false)
     const isMounted = React.useRef(false)
 
-    const { selectedCategory, selectedSort, orderType, currentPage } = useSelector(state => state.filter)
-
-    const [items, setItems] = React.useState([]);
-    const [isLoading, setIsLoading] = React.useState(true)
+    const { selectedCategory, selectedSort, orderType, currentPage, searchValue } = useSelector(state => state.filter)
+    const { items, status } = useSelector(state => state.pizza)
     const limit = 4
 
-    const fetchPizzas = () => {
+    const requestPizzas = async () => {
         const category = selectedCategory > 0 ? `category=${selectedCategory}` : ''
         const search = searchValue === '' ? '' : `search=${searchValue}`
+        await dispatch(fetchPizza({ currentPage, limit, category, selectedSort, orderType, search }))
 
-        setIsLoading(true)
-        axios.get(`https://634bdb48317dc96a308c1d66.mockapi.io/items?page=${currentPage}&limit=${limit}&${category
-            }&sortBy=${selectedSort.sortType}&order=${orderType}&${search}`)
-            .then((res) => {
-                setItems(res.data)
-                setIsLoading(false)
-            })
     }
     ///do this actions only if there was first render and parameters was changed
     React.useEffect(() => {
@@ -65,17 +56,13 @@ export const Home = () => {
                 sort
             }
             ))
-            isSearch.current = true
         }
     }, [])
 
     //if there was first render then request pizzas
     React.useEffect(() => {
         window.scrollTo(0, 0)
-        if (!isSearch.current) {
-            fetchPizzas()
-        }
-        isSearch.current = false
+        requestPizzas()
     }, [selectedCategory, selectedSort.sortType, orderType, searchValue, currentPage])
 
 
@@ -90,12 +77,14 @@ export const Home = () => {
                 <Sort selectedSort={selectedSort} onChangeSort={(index) => onChangeFilter(index, setSelectedSort)} />
             </div>
             <h2 className="content__title">All Pizza</h2>
-            <div className="content__items">
-                {
-                    isLoading ? [...new Array(6)].map((_, i) => <Dummy key={i} />)
-                        : items.map((obj) => <PizzaBlock key={obj.id} {...obj} />)
-                }
-            </div>
+
+            {status === 'error' ? <NoPizza />
+                : (<div className="content__items"> {status === 'loading' ?
+                    [...new Array(6)].map((_, i) => <Dummy key={i} />)
+                    : items.map((obj) => <PizzaBlock key={obj.id} {...obj} />)}
+                </div>)
+            }
+
             <Pagination pageCount={3} currentPage={currentPage} onChangePage={(number) => dispatch(setCurrentPage(number))} numberOfPages={limit} />
         </div>
     )
