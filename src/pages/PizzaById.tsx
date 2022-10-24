@@ -1,23 +1,23 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useSelector} from 'react-redux'
+import { useParams } from 'react-router-dom'
 import { Dummy } from '../components/PizzaBlock/Dummy'
 import { fetchExactPizza } from '../redux/slices/pizzaSlice'
+import { RootState, useAppDispatch } from '../redux/store'
 
 
-const PizzaById = () => {
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
+const PizzaById: React.FC = () => {
+    const dispatch = useAppDispatch()
     const { id } = useParams()
-    const pizza = useSelector(state => state.pizza.PizzaById)
+    const pizza = useSelector((state: RootState) => state.pizza.pizzaById)
 
     React.useEffect(() => {
-    dispatch(fetchExactPizza(id))
+    dispatch(fetchExactPizza(Number(id)))
     }, [])
 
 
 
-    if (pizza.length === 0) {
+    if (!pizza) {
         return <Dummy />
     }
     return (

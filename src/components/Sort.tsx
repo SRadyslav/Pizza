@@ -1,36 +1,44 @@
 import React from 'react'
 import {useDispatch} from 'react-redux'
 
-import { setOrderType } from '../redux/slices/filterSlice'
+import { OrderType, setOrderType, SortListItemType, SortProperty } from '../redux/slices/filterSlice'
 
 
-export const sortList = [{ name: "popularity", sortType: "rating" },
-    { name: "price", sortType: "price" },
-    { name: "name", sortType: "title" }
-    ]
+export const sortList: SortListItemType[] = [{ name: 'popularity', sortBy: SortProperty.RATING },
+    { name: 'price', sortBy: SortProperty.PRICE },
+    { name: 'name', sortBy: SortProperty.TITLE}
+]
 
-const Sort = ({ selectedSort, onChangeSort }) => {
+type SortProps = {
+    selectedSort: SortListItemType;
+    onChangeSort: (index: SortListItemType) => void;
+}
+type PopupClick = MouseEvent & {
+    path: Node[];
+};
+
+const Sort: React.FC<SortProps> = ({ selectedSort,  onChangeSort }) => {
     const dispatch = useDispatch()
-    const sortRef = React.useRef()
+    const sortRef = React.useRef<HTMLDivElement>(null)
 
     React.useEffect(()=>{
-        const eventListener = (event) => {
-            if(!event.path.includes(sortRef.current)) {
+        const eventListener = (event: PopupClick) => {
+            if(sortRef.current && !event.path.includes(sortRef.current)) {
                 setIsVisible(false)
             }
         }
         document.body.addEventListener('click', eventListener);
-        return ()=>{
+        return ()=> {
             document.body.removeEventListener('click', eventListener);
         }
     },[])
 
-    const onButtonClick = (payload) => {
+    const onButtonClick = (payload: OrderType) => {
         dispatch(setOrderType(payload))
     }
     const [isVisible, setIsVisible] = React.useState(false)
 
-    const selectItem = (index) => {
+    const selectItem = (index:SortListItemType) => {
         onChangeSort(index)
         setIsVisible(false)
     }
@@ -56,5 +64,7 @@ const Sort = ({ selectedSort, onChangeSort }) => {
         </div>
     )
 }
+
+
 
 export default Sort;

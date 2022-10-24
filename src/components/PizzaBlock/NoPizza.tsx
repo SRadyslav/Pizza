@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const NoPizza = () => {
+export const NoPizza: React.FC = () => {
     return (
         <div className="content__error-info" >
             <h2>Sorry</h2>

@@ -8,7 +8,7 @@ import { clearItems, selectCartData } from '../redux/slices/cartSlice';
 
 
 
-const Cart = () => {
+const Cart: React.FC = () => {
     const dispatch = useDispatch();
     const {items, totalPrice} = useSelector(selectCartData)
     const totalCount = items.reduce((prevSum, obj) => obj.count + prevSum, 0)
