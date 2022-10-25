@@ -73,9 +73,9 @@ export const Home: React.FC = () => {
     }, [selectedCategory, sortBy, order, searchValue, currentPage])
 
 
-    const onChangeFilter = (payload: number | SortListItemType, action: typeof setSelectedCategory | typeof setSelectedSort) => {
+    const onChangeFilter = React.useCallback( (payload: number | SortListItemType, action: typeof setSelectedCategory | typeof setSelectedSort) => {
         dispatch(action(payload as number & SortListItemType))
-    }
+    }, []) // Use hook useCallback to stop rerendering Categories and Sort components every time when Home rerendered and create new this function
 
     return (
         <div className="container">
