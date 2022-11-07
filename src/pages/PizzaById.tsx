@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector} from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { Dummy } from '../components/PizzaBlock/Dummy'
-import { fetchExactPizza } from '../redux/slices/pizzaSlice'
+import { fetchExactPizza } from '../redux/pizza/API'
 import { RootState, useAppDispatch } from '../redux/store'
 
 

@@ -8,10 +8,12 @@ import Sort, { sortList} from '../components/Sort'
 import PizzaBlock from '../components/PizzaBlock/index'
 import { Dummy } from '../components/PizzaBlock/Dummy';
 import Pagination from '../components/Pagination';
-import { setSelectedCategory, setSelectedSort, setCurrentPage, setFilter, SortListItemType} from '../redux/slices/filterSlice'
-import { fetchPizza, Pizza, SearchPizzaParams, Status } from '../redux/slices/pizzaSlice'
 import { NoPizza } from '../components/PizzaBlock/NoPizza'
 import { RootState, useAppDispatch } from '../redux/store'
+import { Pizza, SearchPizzaParams, Status } from '../redux/pizza/types'
+import { fetchPizza } from '../redux/pizza/API'
+import { setCurrentPage, setFilter, setSelectedCategory, setSelectedSort } from '../redux/filter/slice'
+import { SortListItemType } from '../redux/filter/types'
 
 
 

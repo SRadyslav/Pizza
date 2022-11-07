@@ -1,7 +1,7 @@
 import React from 'react'
 import {useDispatch} from 'react-redux'
-
-import { OrderType, setOrderType, SortListItemType, SortProperty } from '../redux/slices/filterSlice'
+import { setOrderType } from '../redux/filter/slice';
+import { OrderType, SortListItemType, SortProperty } from '../redux/filter/types';
 
 
 export const sortList: SortListItemType[] = [{ name: 'popularity', sortBy: SortProperty.RATING },

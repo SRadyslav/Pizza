@@ -5,14 +5,24 @@ import { useSelector } from 'react-redux'
 
 import svgLogo from '../assets/img/pizza-logo.svg'
 import Search from './Search'
-import { selectCartData } from '../redux/slices/cartSlice'
+import { selectCartData } from '../redux/cart/selectors'
 
 
 const Header: React.FC = () => {
     const { pathname } = useLocation();
+    const isMounted = React.useRef(false);
 
     const { totalPrice, items } = useSelector(selectCartData)
     const totalCount = items.reduce((sum, item) => sum + item.count, 0)
+    //do it for save cart data when reload page
+    React.useEffect(()=>{
+        if(isMounted.current) {
+            const json = JSON.stringify(items)
+            localStorage.setItem('cart', json)
+        }
+        isMounted.current = true
+    },[items])
+
     return (
         <div className="header">
             <div className="container">
