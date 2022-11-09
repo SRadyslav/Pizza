@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# # 🍕 React Pizza 🍕
+
+Online pizza ordering shop - React Pizza
+
+Repository is deployed on [GitHubPages](https://sradyslav.github.io/Pizza/)
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# 🔥 Technologies:
 
-In the project directory, you can run:
+- **ReactJS 18**
+- **TypeScript**
+- **Redux Toolkit** (data/pizza storage)
+- **React Router v6** (navigation)
+- **Axios + Fetch** (send request to backend)
+- **React Hooks** (hooks)
+- **Prettier** (code formatting)
+- CSS-Modules / SCSS (stylization)
+- React Content Loader (skeleton)
+- React Pagination (pagination)
+- Lodash.Debounce
+- Code Splitting, React Loadable, useWhyDidYouUpdate
 
-### `npm start`
+### Learn more about technologies
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **[TypeScript](https://www.typescriptlang.org/) -** needed to write better JavaScript code. Thanks to the correct writing of the TS code, we automatically document our code + our application will contain fewer bugs due to strong typing.
+- **[Redux Toolkit](https://redux-toolkit.js.org/)** - using this library, we will be able to create a global data store for our application, thus, a more convenient way to exchange information between different components our application. This library is being actively implemented in all large and small react projects for 2021-2022.
+- **[React Router v6](https://reactrouter.com/docs/en/v6/getting-started/overview)** - will allow us to create navigation through our site without page reloads. You probably noticed that the VK or Instagram site, when you navigate through different sections, does not reload the entire page, but only a certain part of the site. It is this feature that we will implement in our application using React Router.
+- **[Axios](https://github.com/axios/axios)** - will help us interact with the server side. Send data to the server or receive it, if necessary, from the server already in our front-end application.
+- **[React Hooks](https://reactjs.org/docs/hooks-intro.html)** is a set of ready-made functions inside the React library for solving various tasks, for example, storing data, determining the first display of the application , function optimizations, etc.
+- **[Prettier](https://prettier.io/)** - our code should not only be well-written, but also **beautiful**. With Prettier, our code will automatically align inside our code editor, making it more readable.
+- **[SCSS](https://sass-scss.ru/)** is the same CSS, but with more powerful features, functions, variables, loops (yes, Carl, loops in CSS) and a bunch of other cool solutions.
+- **[CSS-Modules](https://github.com/css-modules/css-modules)** - we will use SCSS along with CSS modules. In fact, you don't have to learn anything new. You will write the same styles, but in separate files (css modules), thereby encapsulating your CSS classes.
+- **[Lodash](https://lodash.com/docs)** - a set of ready-made JS functions for a huge number of different tasks.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# 👀 Where to start?
 
-### `npm test`
+1. Install the code editor **[Visual Studio Code](https://code.visualstudio.com/)**
+2. Install [NodeJS](https://nodejs.org/en/)
+3. Install [Create React App](https://create-react-app.dev/) **\* (see video)**
+4. Download the repository with layout https://github.com/Archakov06/react-pizza-html
+5. Start development.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+> 💡 If any links or materials are missing on this page, write in the comments so that I can update the information.
