@@ -395,3 +395,15 @@ body {
     }
   }
 }
+.pizzaById {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+    @media(max-width: 530px){
+      .content__title{
+        font-size: 30px;
+    }
+  }
+}

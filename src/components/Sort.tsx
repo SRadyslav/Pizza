@@ -17,7 +17,7 @@ type PopupClick = MouseEvent & {
     path: Node[];
 };
 
-const Sort: React.FC<SortProps> = React.memo(({ selectedSort,  onChangeSort }) => {
+export const Sort: React.FC<SortProps> = React.memo(({ selectedSort,  onChangeSort }) => {
     const dispatch = useDispatch()
     const sortRef = React.useRef<HTMLDivElement>(null)
 
@@ -66,5 +66,3 @@ const Sort: React.FC<SortProps> = React.memo(({ selectedSort,  onChangeSort }) =
 })
 
 
-
-export default Sort;

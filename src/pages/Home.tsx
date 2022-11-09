@@ -3,12 +3,7 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import qs from 'qs'
 
-import Categories from '../components/Categories'
-import Sort, { sortList} from '../components/Sort'
-import PizzaBlock from '../components/PizzaBlock/index'
-import { Dummy } from '../components/PizzaBlock/Dummy';
-import Pagination from '../components/Pagination';
-import { NoPizza } from '../components/PizzaBlock/NoPizza'
+import {Dummy, Categories, NoPizza, Pagination, PizzaBlock,  Sort, sortList} from '../components'
 import { RootState, useAppDispatch } from '../redux/store'
 import { Pizza, SearchPizzaParams, Status } from '../redux/pizza/types'
 import { fetchPizza } from '../redux/pizza/API'
